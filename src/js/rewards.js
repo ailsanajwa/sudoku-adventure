@@ -8,6 +8,13 @@ export function coinsForStars(stars) {
   return 10 + stars * 6
 }
 
+export function calculateScore(timeSeconds, hintCount, mistakes) {
+  const speedScore = Math.max(180, 900 - timeSeconds * 2)
+  const hintPenalty = hintCount * 45
+  const mistakePenalty = mistakes * 60
+  return Math.max(100, speedScore - hintPenalty - mistakePenalty)
+}
+
 export function checkAchievementProgress(state, result) {
   const earned = []
   if (!result.mistakes) earned.push('no-mistake')

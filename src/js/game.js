@@ -8,7 +8,7 @@ const logoUrl = new URL('../assets/logo.png', import.meta.url).href
 const soundUrl = new URL('../assets/sounds/soundefek.mp3', import.meta.url).href
 
 const fruitIcons = ['??', '??', '??', '??', '??', '??', '??', '??', '??']
-const colorLabels = ['Merah', 'Hijau', 'Biru', 'Kuning', 'Ungu', 'Oranye', 'Pink', 'Cyan', 'Abu']
+const colorLabels = ['🔴','🟢','🔵','🟡','🟣','🟠','🩷','🤎','⚫']
 
 const savedProgress = loadProgress()
 const state = {
