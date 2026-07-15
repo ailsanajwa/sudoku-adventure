@@ -187,7 +187,10 @@ export function initGame() {
   app.addEventListener('click', handleAppClick)
   app.addEventListener('input', handleAppInput)
   document.addEventListener('visibilitychange', handleVisibilityChange)
+  window.addEventListener('pagehide', handlePageHide)
+  window.addEventListener('beforeunload', handlePageHide)
   scheduleSplashTransition()
+  saveGame(false)
   render()
 }
 
@@ -271,12 +274,17 @@ function stopBackgroundMusic() {
 
 function handleVisibilityChange() {
   if (document.hidden) {
+    saveGame()
     stopBackgroundMusic()
     return
   }
   if (audioGestureUnlocked) {
     startBackgroundMusic()
   }
+}
+
+function handlePageHide() {
+  saveGame()
 }
 
 function playSound(name) {
@@ -485,6 +493,8 @@ function handleAppClick(event) {
         state.loginDraft = ''
         saveGame()
         changeScreen('menu')
+      } else {
+        state.message = 'Masukkan nama dulu untuk login.'
       }
       render()
       break
@@ -3250,20 +3260,29 @@ function renderThemeScreen() {
 
 function renderLoginScreen() {
   return `
-    <div class="page">
-      <section class="panel header-panel">
-        <button class="icon-action" data-action="goto" data-value="settings">←</button>
-        <div>
-          <p class="eyebrow">Login</p>
-          <h2>Masuk untuk menyimpan progress</h2>
-        </div>
-      </section>
-      <section class="panel login-card">
-        <label class="profile-input-row">
-          <span>Nama Player</span>
-          <input class="profile-input" data-action="login-input" value="${state.loginDraft}" placeholder="Masukkan nama kamu" />
-        </label>
-        <button class="button primary" data-action="login">Login</button>
+    <div class="page login-fantasy-page">
+      <section class="login-fantasy-scene">
+        <button class="login-fantasy-back" data-action="goto" data-value="settings" aria-label="Kembali">←</button>
+
+        <article class="login-fantasy-card">
+          <img class="login-fantasy-logo" src="${logoUrl}" alt="Sudoku Adventure" />
+          <h2>LOGIN</h2>
+
+          <label class="login-fantasy-field">
+            <span class="login-fantasy-icon">👤</span>
+            <input
+              class="login-fantasy-input"
+              data-action="login-input"
+              value="${state.loginDraft}"
+              placeholder="Masukkan nama kamu"
+              autocomplete="username" />
+          </label>
+
+          <button class="login-fantasy-submit" data-action="login">LOGIN</button>
+        </article>
+
+        <img class="login-fantasy-dino" src="${dinoUrl}" alt="Dino mascot" />
+        <aside class="login-fantasy-sign">LET'S<br />SOLVE<br />THE PUZZLE!</aside>
       </section>
     </div>
   `

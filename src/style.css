@@ -4680,6 +4680,268 @@ body {
   cursor: default;
 }
 
+/* Fantasy login redesign */
+.login-fantasy-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+}
+
+.login-fantasy-scene {
+  width: min(1120px, 100%);
+  min-height: 580px;
+  position: relative;
+  border-radius: 34px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 233, 184, 0.42);
+  background:
+    linear-gradient(180deg, rgba(27, 26, 62, 0.2), rgba(36, 61, 96, 0.24)),
+    url('./assets/images/puzzles/puzzledino2.png');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 26px 60px rgba(17, 18, 44, 0.35);
+}
+
+.login-fantasy-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 30%, rgba(255, 202, 95, 0.25), transparent 42%),
+    linear-gradient(90deg, rgba(34, 20, 65, 0.38), rgba(24, 58, 87, 0.2));
+  pointer-events: none;
+}
+
+.login-fantasy-back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 248, 220, 0.62);
+  color: #4f2e11;
+  font-size: 1.3rem;
+  font-weight: 900;
+  background: linear-gradient(180deg, #ffd57d, #e8a13f);
+}
+
+.login-fantasy-card {
+  position: relative;
+  z-index: 2;
+  width: min(520px, calc(100% - 260px));
+  margin: 12px auto 0;
+  border-radius: 36px;
+  border: 4px solid rgba(133, 102, 62, 0.55);
+  padding: 14px 22px 20px;
+  display: grid;
+  gap: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 247, 227, 0.97), rgba(246, 232, 197, 0.95));
+  box-shadow: 0 22px 42px rgba(43, 26, 10, 0.36);
+}
+
+.login-fantasy-logo {
+  width: min(360px, 100%);
+  justify-self: center;
+  margin-top: -2px;
+  filter: drop-shadow(0 8px 14px rgba(59, 33, 96, 0.3));
+  animation: loginLogoFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes loginLogoFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 8px 14px rgba(59, 33, 96, 0.3));
+  }
+  50% {
+    transform: translateY(-4px) scale(1.01);
+    filter: drop-shadow(0 14px 20px rgba(101, 58, 158, 0.36));
+  }
+}
+
+.login-fantasy-card h2 {
+  margin: -2px 0 4px;
+  text-align: center;
+  color: #6f3aa4;
+  font-size: clamp(1.7rem, 3.2vw, 2.35rem);
+  letter-spacing: 0.08em;
+  font-weight: 900;
+}
+
+.login-fantasy-field {
+  min-height: 58px;
+  border-radius: 18px;
+  border: 2px solid rgba(196, 168, 130, 0.62);
+  background: rgba(255, 249, 236, 0.95);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+}
+
+.login-fantasy-icon {
+  width: 38px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+}
+
+.login-fantasy-input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #5a472f;
+  font-size: 1.04rem;
+  font-weight: 700;
+}
+
+.login-fantasy-input::placeholder {
+  color: rgba(98, 79, 58, 0.68);
+  font-weight: 600;
+}
+
+.login-fantasy-eye {
+  min-width: 58px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(136, 90, 182, 0.4);
+  background: rgba(136, 90, 182, 0.12);
+  color: #6b3ba4;
+  font-weight: 800;
+}
+
+.login-fantasy-submit {
+  margin-top: 2px;
+  min-height: 62px;
+  border-radius: 20px;
+  border: 2px solid rgba(109, 56, 162, 0.55);
+  color: #f9f2ff;
+  font-size: 1.65rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  background: linear-gradient(180deg, #b768e7, #7b3cb8);
+  box-shadow: inset 0 -8px 0 rgba(72, 34, 112, 0.45), 0 14px 22px rgba(68, 35, 108, 0.35);
+  animation: loginButtonPulse 2.2s ease-in-out infinite;
+}
+
+.login-fantasy-submit:hover {
+  filter: brightness(1.04);
+}
+
+.login-fantasy-submit:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+@keyframes loginButtonPulse {
+  0%,
+  100% {
+    box-shadow: inset 0 -8px 0 rgba(72, 34, 112, 0.45), 0 14px 22px rgba(68, 35, 108, 0.35);
+  }
+  50% {
+    box-shadow: inset 0 -8px 0 rgba(72, 34, 112, 0.45), 0 18px 28px rgba(68, 35, 108, 0.45), 0 0 24px rgba(183, 104, 231, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-fantasy-logo,
+  .login-fantasy-submit {
+    animation: none;
+  }
+}
+
+.login-fantasy-dino {
+  position: absolute;
+  left: 22px;
+  bottom: 8px;
+  z-index: 2;
+  width: clamp(140px, 16vw, 220px);
+  border-radius: 24px;
+  object-fit: cover;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.28));
+}
+
+.login-fantasy-sign {
+  position: absolute;
+  right: 20px;
+  bottom: 58px;
+  z-index: 2;
+  width: 138px;
+  border-radius: 16px;
+  border: 2px solid rgba(141, 95, 48, 0.58);
+  background: linear-gradient(180deg, rgba(255, 236, 182, 0.96), rgba(232, 198, 131, 0.96));
+  color: #5f3a18;
+  text-align: center;
+  line-height: 1.15;
+  font-size: 1.35rem;
+  font-weight: 900;
+  padding: 12px 10px;
+  box-shadow: 0 12px 22px rgba(47, 29, 10, 0.32);
+}
+
+@media (max-width: 980px) {
+  .login-fantasy-scene {
+    min-height: auto;
+    padding: 14px 12px 16px;
+  }
+
+  .login-fantasy-card {
+    width: 100%;
+    margin-top: 46px;
+    padding: 14px 12px 18px;
+  }
+
+  .login-fantasy-sign,
+  .login-fantasy-dino {
+    position: static;
+    width: 100%;
+    max-width: 240px;
+    justify-self: center;
+    margin: 8px auto 0;
+  }
+
+  .login-fantasy-sign {
+    font-size: 1.05rem;
+    max-width: 230px;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-fantasy-page {
+    padding: 8px;
+  }
+
+  .login-fantasy-card {
+    border-width: 3px;
+    border-radius: 28px;
+    gap: 8px;
+  }
+
+  .login-fantasy-logo {
+    width: min(300px, 100%);
+  }
+
+  .login-fantasy-field {
+    min-height: 52px;
+    padding: 0 12px;
+  }
+
+  .login-fantasy-submit {
+    min-height: 56px;
+    font-size: 1.45rem;
+  }
+
+  .login-fantasy-sign {
+    display: none;
+  }
+}
+
 /* Reference-like epic story map */
 .story-epic-map {
   gap: 12px;
