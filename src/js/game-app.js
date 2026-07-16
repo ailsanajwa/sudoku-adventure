@@ -618,27 +618,39 @@ function handleAppClick(event) {
       if (state.collections.treasureChests > 0) {
         state.treasurePopup = {
           opened: true,
-          chests: state.collections.treasureChests
+          canClaim: true,
+          chests: state.collections.treasureChests,
+          rewards: {
+            coin: Math.floor(Math.random() * 100) + 50,
+            hint: Math.floor(Math.random() * 3) + 1,
+            fragment: Math.floor(Math.random() * 2) + 1
+          }
         }
-        state.collections.treasureChests--
-        state.showConfetti = true
-        const treasureRewards = {
-          coin: Math.floor(Math.random() * 100) + 50,
-          hint: Math.floor(Math.random() * 3) + 1,
-          fragment: Math.floor(Math.random() * 2) + 1
-        }
-        state.coins += treasureRewards.coin
-        state.hintCount += treasureRewards.hint
-        state.collections.themeFragments += treasureRewards.fragment
-        state.message = `🎉 Dapatkan ${treasureRewards.coin} 🪙, ${treasureRewards.hint} 💡, ${treasureRewards.fragment} ✨!`
-        saveGame()
-        playSound('reward')
-        setTimeout(() => {
-          state.showConfetti = false
-          state.treasurePopup = null
-          render()
-        }, 3000)
+        state.message = 'Treasure chest siap dibuka. Tekan "Terima Hadiah" untuk claim.'
       }
+      render()
+      break
+    case 'claim-treasure':
+      if (!state.treasurePopup) {
+        render()
+        break
+      }
+      if (state.treasurePopup.canClaim && state.collections.treasureChests > 0) {
+        const rewards = state.treasurePopup.rewards || { coin: 0, hint: 0, fragment: 0 }
+        state.collections.treasureChests -= 1
+        state.coins += rewards.coin
+        state.hintCount += rewards.hint
+        state.collections.themeFragments += rewards.fragment
+        state.showConfetti = true
+        state.message = `🎉 Dapatkan ${rewards.coin} 🪙, ${rewards.hint} 💡, ${rewards.fragment} ✨!`
+        playSound('success')
+        saveGame()
+        window.setTimeout(() => {
+          state.showConfetti = false
+          render()
+        }, 1600)
+      }
+      state.treasurePopup = null
       render()
       break
     default:
@@ -3309,6 +3321,7 @@ function renderStoryPopup() {
 
 function renderTreasurePopup() {
   if (!state.treasurePopup) return ''
+  const rewards = state.treasurePopup.rewards
   return `
     <div class="treasure-popup">
       <div class="treasure-card">
@@ -3316,9 +3329,9 @@ function renderTreasurePopup() {
         <h2>Treasure Chest!</h2>
         <p>Peti hadiah terbuka!</p>
         <div class="treasure-reward">
-          <p class="reward-text">Dapatkan coin, hint, dan hadiah spesial!</p>
+          <p class="reward-text">${rewards ? `Hadiah: ${rewards.coin} 🪙, ${rewards.hint} 💡, ${rewards.fragment} ✨` : 'Dapatkan coin, hint, dan hadiah spesial!'}</p>
         </div>
-        <button class="button primary" data-action="close-popup">Terima Hadiah</button>
+        <button class="button primary" data-action="claim-treasure">Terima Hadiah</button>
       </div>
     </div>
   `
